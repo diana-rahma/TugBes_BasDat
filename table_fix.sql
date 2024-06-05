@@ -938,8 +938,6 @@ FROM dokumen_temp
 WHERE
     deskripsi LIKE '%materi%';
 
-
-
 --  mengambil data dari tabel dokumen_temp, user, dan role. (join, filter, grouping)
 SELECT u.nama, dt.judul
 FROM
