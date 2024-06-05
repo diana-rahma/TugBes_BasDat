@@ -11,7 +11,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8;
 USE `mydb` ;
 
 -- -----------------------------------------------------
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`user` (
   `nama` VARCHAR(50) NULL,
   `id_role` INT NULL,
   PRIMARY KEY (`nim_nid`),
-  INDEX `fk1_idx` (`id_role` ASC) ,
+  INDEX `fkuser_idx` (`id_role` ASC) ,
   CONSTRAINT `fk1`
     FOREIGN KEY (`id_role`)
     REFERENCES `mydb`.`role` (`id_role`)
@@ -54,8 +54,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`dokumen_temp` (
   `status` ENUM('Setuju', 'Tolak') NULL,
   `nim_nid` VARCHAR(20) NULL,
   PRIMARY KEY (`id_dok_temp`),
-  INDEX `fk1_idx` (`nim_nid` ASC) ,
-  CONSTRAINT `fk1`
+  INDEX `fkdoktempidx` (`nim_nid` ASC) ,
+  CONSTRAINT `fkdoktemp`
     FOREIGN KEY (`nim_nid`)
     REFERENCES `mydb`.`user` (`nim_nid`)
     ON DELETE NO ACTION
@@ -71,8 +71,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`notifikasi` (
   `isi_pesan` VARCHAR(999) NULL,
   `nim_nid` VARCHAR(20) NULL,
   PRIMARY KEY (`id_notifikasi`),
-  INDEX `fk1_idx` (`nim_nid` ASC) ,
-  CONSTRAINT `fk1`
+  INDEX `fknotif_idx` (`nim_nid` ASC) ,
+  CONSTRAINT `fknotif`
     FOREIGN KEY (`nim_nid`)
     REFERENCES `mydb`.`user` (`nim_nid`)
     ON DELETE NO ACTION
@@ -88,11 +88,11 @@ CREATE TABLE IF NOT EXISTS `mydb`.`dokumen` (
   `judul` VARCHAR(100) NULL,
   `deskripsi` VARCHAR(225) NULL,
   `tgl_upload` DATE NULL,
-  `nim/nid` VARCHAR(20) NULL,
+  `nim_nid` VARCHAR(20) NULL,
   PRIMARY KEY (`id_dokumen`),
-  INDEX `idx1` (`id_dokumen` ASC) ,
-  INDEX `fk1_idx` (`nim_nid` ASC) ,
-  CONSTRAINT `fk1`
+  INDEX `idx_dok` (`id_dokumen` ASC) ,
+  INDEX `fk_idx_nim_idx` (`nim_nid` ASC) ,
+  CONSTRAINT `fkdok`
     FOREIGN KEY (`nim_nid`)
     REFERENCES `mydb`.`user` (`nim_nid`)
     ON DELETE NO ACTION
@@ -172,7 +172,7 @@ INSERT INTO user (nim_nid, email, password, nama, id_role) VALUES
 ('M007', 'm007@student.com', 'password7', 'Gina Aulia', 1),
 ('M008', 'm008@student.com', 'password8', 'Hafiz Kurniawan', 1),
 ('M009', 'm009@student.com', 'password9', 'Indira Saraswati', 1),
-('M010', 'm010@student.com', 'password10', 'Johan Wijaya', 1)
+('M010', 'm010@student.com', 'password10', 'Johan Wijaya', 1),
 ('M011', 'm011@student.com', 'password11', 'Kevin Saputra', 1),
 ('M012', 'm012@student.com', 'password12', 'Larasati Putri', 1),
 ('M013', 'm013@student.com', 'password13', 'Mikael Pratama', 1),
@@ -265,7 +265,7 @@ INSERT INTO admin (`nip`, `nama_admin`, `password`, `id_notifikasi`, `id_dok_tem
 ('A005', 'Hairus', 'adminpass5', NULL, NULL, NULL, NULL, NULL);
 
 -- insert dokumen
-INSERT INTO dokumen (id_dokumen, judul, deskripsi, tgl_upload, `nim/nid`)
+INSERT INTO dokumen (id_dokumen, judul, deskripsi, tgl_upload, `nim_nid`)
 VALUES 
 (1, 'Jobsheet Tree', 'Jobsheet ASD 15', '2023-01-15', 'D001'),
 (2, 'Gauss Jordan', 'Materi Aljabar Linear Pertemuan 3', '2023-02-20', 'D002'),
