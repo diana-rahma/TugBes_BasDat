@@ -184,7 +184,9 @@ INSERT INTO user (nim_nid, email, password, nama, id_role) VALUES
 ('M019', 'm019@student.com', 'password19', 'Tio Wicaksono', 1),
 ('M020', 'm020@student.com', 'password20', 'Ulya Safitri', 1);
 
+ SELECT * FROM user;
 
+ 
 -- Input data dosen
 INSERT INTO user (nim_nid, email, password, nama, id_role) VALUES
 ('D001', 'd001@faculty.com', 'password11', 'Prof. Dr. Ahmad Yani, M.Sc.', 2),
@@ -287,6 +289,14 @@ VALUES
 INSERT INTO pesan (id_pesan, isi_pesan) VALUES 
 (1, 'Dokumen telah disetujui oleh admin.'),
 (2, 'Dokumen telah ditolak oleh admin.');
+
+DESC ROLE;
+DESC user;
+DESC dokumen_temp;
+DESC admin;
+DESC dokumen;
+DESC pesan;
+DESC notifikasi;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
