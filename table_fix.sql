@@ -909,6 +909,7 @@ SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS;
 
 SET UNIQUE_CHECKS = @OLD_UNIQUE_CHECKS;
 
+-- Diana Rahmawati
 -- pengambilan data dari dua tabel, yaitu user dan dokumen_temp, menggunakan operasi join, subquery, filter, dan sorting.
 SELECT u.nama AS 'Nama User', dt.judul AS 'Judul Dokumen'
 FROM dokumen_temp dt
@@ -922,6 +923,7 @@ WHERE
     )
 ORDER BY u.nama ASC;
 
+-- Muhammad Zaki
 -- mensorting dokumen berdasarkaan tanggal uplaoad secara ascending (sorting)
 SELECT * FROM dokumen_temp ORDER BY tgl_upload ASC;
 
@@ -950,7 +952,8 @@ FROM
 WHERE
     r.id_role = 1
     GROUP BY dt.judul;
-    
+
+-- Kibar Mustofa
 -- Menampilkan semua pengguna dan dokumen yang diupload yang mengunggah dokumen (dari dokumen dan dokumen_temp) (sortng dan union)
 SELECT nim_nid, judul, tgl_upload
 FROM dokumen
