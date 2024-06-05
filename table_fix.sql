@@ -939,13 +939,8 @@ WHERE
 -- menggunakan operasi himpunan untuk mencari judul dan deskripsi yang mengandung kata 'materi'
 SELECT * FROM dokumen_temp WHERE deskripsi LIKE '%materi%';
 
--- Menampilkan semua pengguna dan dokumen yang diupload yang mengunggah dokumen (dari dokumen dan dokumen_temp) (sortng dan union)
-SELECT nim_nid, judul, tgl_upload
-FROM dokumen
-UNION ALL
-SELECT nim_nid, judul, tgl_upload
-FROM dokumen_temp
-ORDER BY judul ASC;
+
+
 --  mengambil data dari tabel dokumen_temp, user, dan role. (join, filter, grouping)
 SELECT u.nama, dt.judul
 FROM
@@ -955,3 +950,11 @@ FROM
 WHERE
     r.id_role = 1
     GROUP BY dt.judul;
+    
+-- Menampilkan semua pengguna dan dokumen yang diupload yang mengunggah dokumen (dari dokumen dan dokumen_temp) (sortng dan union)
+SELECT nim_nid, judul, tgl_upload
+FROM dokumen
+UNION ALL
+SELECT nim_nid, judul, tgl_upload
+FROM dokumen_temp
+ORDER BY judul ASC;
