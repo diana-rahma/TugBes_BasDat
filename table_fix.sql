@@ -909,6 +909,7 @@ SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS;
 
 SET UNIQUE_CHECKS = @OLD_UNIQUE_CHECKS;
 
+-- pengambilan data dari dua tabel, yaitu user dan dokumen_temp, menggunakan operasi join, subquery, filter, dan sorting.
 SELECT u.nama AS 'Nama User', dt.judul AS 'Judul Dokumen'
 FROM dokumen_temp dt
     INNER JOIN user u ON u.nim_nid = dt.nim_nid
@@ -921,11 +922,13 @@ WHERE
     )
 ORDER BY u.nama ASC;
 
+-- mensorting dokumen berdasarkaan tanggal uplaoad secara ascending (sorting)
 SELECT * FROM dokumen_temp ORDER BY tgl_upload ASC;
 
--- berapa dokumen yang mengandung kata 'materi'
+-- berapa dokumen yang mengandung kata 'materi' (aggregating)
 SELECT COUNT(deskripsi) FROM dokumen WHERE deskripsi LIKE '%materi%';
 
+-- menggunakan operasi himpunan untuk mencari judul dan deskripsi kecuali materi
 SELECT judul, deskripsi
 FROM dokumen_temp EXCEPT
 SELECT judul, deskripsi
@@ -935,13 +938,14 @@ WHERE
 
 SELECT * FROM dokumen_temp WHERE deskripsi LIKE '%materi%';
 
--- Menampilkan semua pengguna yang mengunggah dokumen (dari dokumen dan dokumen_temp)
+-- Menampilkan semua pengguna dan dokumen yang diupload yang mengunggah dokumen (dari dokumen dan dokumen_temp) (sortng dan union)
 SELECT nim_nid, judul, tgl_upload
 FROM dokumen
-UNION
+UNION ALL
 SELECT nim_nid, judul, tgl_upload
-FROM dokumen_temp;
-
+FROM dokumen_temp
+ORDER BY judul ASC;
+--  mengambil data dari tabel dokumen_temp, user, dan role. (join, filter, grouping)
 SELECT u.nama, dt.judul
 FROM
     dokumen_temp dt
