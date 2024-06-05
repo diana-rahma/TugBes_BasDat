@@ -936,6 +936,7 @@ FROM dokumen_temp
 WHERE
     deskripsi LIKE '%materi%';
 
+-- menggunakan operasi himpunan untuk mencari judul dan deskripsi yang mengandung kata 'materi'
 SELECT * FROM dokumen_temp WHERE deskripsi LIKE '%materi%';
 
 -- Menampilkan semua pengguna dan dokumen yang diupload yang mengunggah dokumen (dari dokumen dan dokumen_temp) (sortng dan union)
