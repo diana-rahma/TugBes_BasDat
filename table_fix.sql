@@ -804,7 +804,7 @@ VALUES (
         'Vektor',
         'Materi Aljabar Linear Pertemuan 12',
         '2023-04-25',
-        'D004'
+        'D006'
     ),
     (
         5,
@@ -877,6 +877,14 @@ VALUES (
         'M015'
     );
 
+INSERT INTO dokumen(id_dokumen, judul, deskripsi, tgl_upload, `nim_nid`) VALUES
+(15, 'Materi DML', 'Materi DML Basis Data', '2023-11-21', 'D012'),
+(16, 'Materi Protopie', 'Materi Mata Kuliah RPL', '2023-11-21', 'D012'),
+(17, 'Materi Microcopy', 'Materi Mata Kuliah RPL', '2023-11-21', 'D012');
+
+INSERT INTO dokumen(id_dokumen, judul, deskripsi, tgl_upload, `nim_nid`) VALUES
+(17, 'Materi Microcopy', 'Materi Mata Kuliah RPL', '2023-11-21', 'D012');
+
 -- insert pesan
 INSERT INTO
     pesan (id_pesan, isi_pesan)
@@ -923,6 +931,15 @@ WHERE
     )
 ORDER BY u.nama ASC;
 
+SELECT * FROM dokumen;
+
+SELECT u.nim_nid, u.nama, COUNT(d.id_dokumen) AS jumlah_dokumen
+FROM user u
+LEFT JOIN dokumen d ON u.nim_nid = d.nim_nid
+GROUP BY u.nama
+HAVING jumlah_dokumen > 2
+ORDER BY jumlah_dokumen DESC;
+
 -- Muhammad Zaki
 -- mensorting dokumen berdasarkaan tanggal uplaoad secara ascending (sorting)
 SELECT * FROM dokumen_temp ORDER BY tgl_upload ASC;
@@ -947,6 +964,26 @@ FROM
 WHERE
     r.id_role = 1
     GROUP BY dt.judul;
+
+-- soal UAS
+SELECT status, COUNT(status) FROM dokumen_temp
+WHERE status = 'setuju'
+GROUP BY status;
+
+SELECT 
+    status, COUNT(status) AS jumlah_dokumen
+FROM dokumen_temp
+GROUP BY status;
+
+SELECT status, COUNT(status) AS count_status
+FROM dokumen_temp
+GROUP BY status
+UNION ALL
+SELECT 'Setuju' AS status, 0 AS count_status
+WHERE NOT EXISTS (SELECT 1 FROM dokumen_temp WHERE status = 'Setuju')
+UNION ALL
+SELECT 'Tolak' AS status, 0 AS count_status
+WHERE NOT EXISTS (SELECT 1 FROM dokumen_temp WHERE status = 'Tolak');
 
 -- Kibar Mustofa
 -- Menampilkan semua pengguna dan dokumen yang diupload yang mengunggah dokumen (dari dokumen dan dokumen_temp) (sortng dan union)
